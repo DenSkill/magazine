@@ -2,6 +2,7 @@ import csv
 import os
 from os import fspath
 
+
 class Item:
     pay_rate = 1.0
     all = []
@@ -11,6 +12,12 @@ class Item:
         self.price = price
         self.count = count
         self.all.append(self)
+
+    def __repr__(self) -> str:
+        return f'The object - Item, name - {self.__name},price - {self.price}, count - {self.count}'
+
+    def __str__(self) -> str:
+        return f'{self.__name}'
 
     def apply_discount(self):
         self.price = self.pay_rate * self.price
@@ -33,8 +40,6 @@ class Item:
             for row in reader:
                 cls(row['name'], int(row['price']), int(row['quantity']))
 
-
-
     @property
     def name(self):
         return self.__name
@@ -50,3 +55,7 @@ class Item:
         """Возвращает цену товра"""
         return self.price * self.count
 
+
+item1 = Item("Смартфон", 10000, 20)
+item1
+print(item1)
