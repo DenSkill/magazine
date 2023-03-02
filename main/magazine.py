@@ -1,5 +1,6 @@
 import csv
-
+import os
+from os import fspath
 
 class Item:
     pay_rate = 1.0
@@ -27,10 +28,12 @@ class Item:
     def new_copy(cls) -> 'Item':
         """Создаёт новые экзэмпляры из csv файла"""
         copies = []
-        with open('items.csv', 'r', encoding="UTF-8", newline='') as csvfile:
+        with open(os.fspath(("items.csv")), 'r', encoding="UTF-8", newline='') as csvfile:
             reader = csv.DictReader(csvfile, delimiter=',')
             for row in reader:
                 cls(row['name'], int(row['price']), int(row['quantity']))
+
+
 
     @property
     def name(self):
@@ -46,3 +49,4 @@ class Item:
     def get_price(self):
         """Возвращает цену товра"""
         return self.price * self.count
+

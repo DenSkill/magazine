@@ -1,6 +1,6 @@
-from main.magazine import Item
-import csv
 import pytest
+
+from main.magazine import Item
 
 
 def test_new_copy():
@@ -20,7 +20,6 @@ def test_is_int():
 
 
 def test_name():  # тест длины названия
-    item = Item('12345678910', 1, 1)
-    if len(item.name) > 10:
-        with pytest.raises(Exception):
-            item.name = 'Длина наименования товара превышает 10 символов'
+    item = Item('Смартфон', 10000, 20)
+    with pytest.raises(Exception):
+        item.name = 'СмартфонСмартифон'
