@@ -73,10 +73,9 @@ class Phone(Item):
     def __repr__(self) -> str:
         return f'The object - Item, name - {self.name},price - {self.price}, count - {self.count}, sim_count - {self.number_of_sim}'
 
-
     @property
     def number_of_sim(self):
-        return self.number_of_sim
+        return self._number_of_sim
 
     @number_of_sim.setter
     def number_of_sim(self, value):
@@ -84,7 +83,7 @@ class Phone(Item):
             raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля.")
         else:
             self._number_of_sim = value
-            return self.number_of_sim
+
 
 phone1 = Phone("iPhone 14", 120000, 5, 2)
 keyboard = Item('qwe', 10, 1)
