@@ -13,6 +13,12 @@ class Item:
         self.count = count
         self.all.append(self)
 
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return int(self.count) + int(other.count)
+        else:
+            raise ValueError('Оба операнта должны принадлежать классу Item')
+
     def __repr__(self) -> str:
         return f'The object - Item, name - {self.__name},price - {self.price}, count - {self.count}'
 
@@ -64,12 +70,6 @@ class Phone(Item):
         else:
             self.number_of_sim = number_of_sim
 
-    def __add__(self, other):
-        if isinstance(other, Item):
-            return int(self.count) + int(other.count)
-        else:
-            raise ValueError('Оба операнта должны принадлежать классу Item')
-
     def __repr__(self) -> str:
         return f'The object - Item, name - {self.name},price - {self.price}, count - {self.count}, sim_count - {self.number_of_sim}'
 
@@ -88,6 +88,6 @@ class Phone(Item):
 phone1 = Phone("iPhone 14", 120000, 5, 2)
 keyboard = Item('qwe', 10, 1)
 print(repr(phone1))
-print(phone1 + keyboard)  # если поменять слогаемые местами - выдаст ошибку. Почему?
-phone1.number_of_sim = 0
+print(keyboard + phone1)
+phone1.number_of_sim = 3
 print(repr(phone1))
