@@ -59,10 +59,10 @@ class Item:
 class Phone(Item):
     def __init__(self, name, price, count, number_of_sim=1):
         super().__init__(name, price, count)
-        if number_of_sim <= 0:
-            print('ValueError: Количество физических SIM - карт должно быть целым числом больше нуля')
-        self.number_of_sim = number_of_sim
-
+        if number_of_sim < 1:
+            raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля.")
+        else:
+            self.number_of_sim = number_of_sim
 
     def __add__(self, other):
         if isinstance(other, Item):
@@ -74,9 +74,21 @@ class Phone(Item):
         return f'The object - Item, name - {self.name},price - {self.price}, count - {self.count}, sim_count - {self.number_of_sim}'
 
 
+    @property
+    def number_of_sim(self):
+        return self.number_of_sim
+
+    @number_of_sim.setter
+    def number_of_sim(self, value):
+        if value < 1:
+            raise ValueError("Количество физических SIM-карт должно быть целым числом больше нуля.")
+        else:
+            self._number_of_sim = value
+            return self.number_of_sim
+
 phone1 = Phone("iPhone 14", 120000, 5, 2)
 keyboard = Item('qwe', 10, 1)
 print(repr(phone1))
-print(phone1 + keyboard) # если поменять слогаемые местами - выдаст ошибку. Почему?
-phone1.number_of_sim = 0 # куда прописать value error щас?
+print(phone1 + keyboard)  # если поменять слогаемые местами - выдаст ошибку. Почему?
+phone1.number_of_sim = 0
 print(repr(phone1))
