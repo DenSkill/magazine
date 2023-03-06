@@ -85,9 +85,44 @@ class Phone(Item):
             self._number_of_sim = value
 
 
-#phone1 = Phone("iPhone 14", 120000, 5, 2)
-#keyboard = Item('qwe', 10, 1)
-#print(repr(phone1))
-#print(keyboard + phone1)
-#phone1.number_of_sim = 3
-#print(repr(phone1))
+class MixL:
+    # __language = "EN"
+    pass
+
+
+# @classmethod
+# def change_lang(self):  # меняет язык
+#    if self.__language == "EN":
+#        self.__language = "RU"
+#    else:
+#        self.__language = "EN"
+
+
+class KeyBoard(Item, MixL):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__language = "EN"
+
+    @property  # геттер на возврат языка клавиатуры
+    def language(self):
+        return self.__language
+
+    def change_lang(self):
+        if self.__language == "EN":
+            self.__language = "RU"
+        else:
+            self.__language = "EN"
+
+
+kb = KeyBoard('Dark', 9600, 5)
+print(kb)
+print(kb.language)
+kb.change_lang()
+print(kb.language)
+kb.change_lang()
+print(kb.language)
+kb.change_lang()
+print(kb.language)
+kb.language = 'CH'
+print(kb.language)
