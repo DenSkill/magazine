@@ -85,9 +85,9 @@ class Phone(Item):
             self._number_of_sim = value
 
 
-phone1 = Phone("iPhone 14", 120000, 5, 2)
-keyboard = Item('qwe', 10, 1)
-print(repr(phone1))
-print(keyboard + phone1)
-phone1.number_of_sim = 3
-print(repr(phone1))
+#phone1 = Phone("iPhone 14", 120000, 5, 2)
+#keyboard = Item('qwe', 10, 1)
+#print(repr(phone1))
+#print(keyboard + phone1)
+#phone1.number_of_sim = 3
+#print(repr(phone1))
