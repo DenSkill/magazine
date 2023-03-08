@@ -86,16 +86,18 @@ class Phone(Item):
 
 
 class MixL:
-    # __language = "EN"
-    pass
+    __language = "EN"
 
+    @classmethod
+    def change_lang(self):  # меняет язык
+        if self.__language == "EN":
+            self.__language = "RU"
+        else:
+            self.__language = "EN"
 
-# @classmethod
-# def change_lang(self):  # меняет язык
-#    if self.__language == "EN":
-#        self.__language = "RU"
-#    else:
-#        self.__language = "EN"
+    @property
+    def language(self):
+        return self.__language
 
 
 class KeyBoard(Item, MixL):
@@ -103,16 +105,6 @@ class KeyBoard(Item, MixL):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__language = "EN"
-
-    @property  # геттер на возврат языка клавиатуры
-    def language(self):
-        return self.__language
-
-    def change_lang(self):
-        if self.__language == "EN":
-            self.__language = "RU"
-        else:
-            self.__language = "EN"
 
 
 kb = KeyBoard('Dark', 9600, 5)
