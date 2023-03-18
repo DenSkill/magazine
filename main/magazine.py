@@ -2,6 +2,8 @@ import csv
 import os
 from os import fspath
 
+from main.errors import InstantiateCSVError
+
 
 class Item:
     pay_rate = 1.0
@@ -38,13 +40,23 @@ class Item:
         return False
 
     @classmethod
-    def new_copy(cls) -> 'Item':
-        """Создаёт новые экзэмпляры из csv файла"""
-        copies = []
-        with open(os.fspath(("items.csv")), 'r', encoding="UTF-8", newline='') as csvfile:
-            reader = csv.DictReader(csvfile, delimiter=',')
-            for row in reader:
-                cls(row['name'], int(row['price']), int(row['quantity']))
+    def instantiate_from_csv(cls, path: str):
+        """"Считывает данные из csv-файла и создает экземпляры класса, инициализируя их данными из файла"""
+        """Если файл не найден или поврежден выбрасывает соответствующие Exception"""
+
+        if not os.path.isfile("../items.csv"):
+            raise FileNotFoundError("отсутствует файл")
+        try:
+            with open(path, encoding='windows-1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if list(row.keys()) == ['name', 'price', 'quantity']:
+                        cls(name=row['name'], price=float(row['price']), quantity=int(row['quantity']))
+                    else:
+                        raise InstantiateCSVError
+
+        except KeyError:
+            InstantiateCSVError('Файл items.csv поврежден')
 
     @property
     def name(self):
@@ -107,14 +119,3 @@ class KeyBoard(Item, MixL):
         self.__language = "EN"
 
 
-kb = KeyBoard('Dark', 9600, 5)
-print(kb)
-print(kb.language)
-kb.change_lang()
-print(kb.language)
-kb.change_lang()
-print(kb.language)
-kb.change_lang()
-print(kb.language)
-kb.language = 'CH'
-print(kb.language)
