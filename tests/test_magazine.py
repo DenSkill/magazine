@@ -3,6 +3,23 @@ import pytest
 from main.magazine import Item, KeyBoard
 from main.magazine import Phone
 
+from main.exceptions import InstantiateCSVError
+
+
+def test_init_default_message():
+    e = InstantiateCSVError()
+    assert e.message == 'Файл item.csv поврежден'
+
+
+def test_init_args():
+    e = InstantiateCSVError('Отсутствует цена')
+    assert e.message == 'Отсутствует цена'
+
+
+def test_str():
+    e = InstantiateCSVError()
+    assert str(e) == 'Файл item.csv поврежден'
+
 
 def test_item_init():
     item1 = Item("Смартфон", 10000, 20)
@@ -30,10 +47,12 @@ def test_name():  # тест длины названия
     with pytest.raises(Exception):
         item.name = 'СмартфонСмартифон'
 
-def test_sim(): # тест количества сим-карт
+
+def test_sim():  # тест количества сим-карт
     phone = Phone('Смартфон', 10000, 20, 1)
     with pytest.raises(Exception):
         phone.number_of_sim = 0
+
 
 def test_cls_keyboard():
     kb = KeyBoard('Dark', 9600, 5)

@@ -45,7 +45,7 @@ class Item:
         """Если файл не найден или поврежден выбрасывает соответствующие Exception"""
 
         if not os.path.isfile("../items.csv"):
-            raise FileNotFoundError("отсутствует файл")
+            raise FileNotFoundError("Отсутствует файл item.csv")
         try:
             with open(path, encoding='windows-1251') as csvfile:
                 reader = csv.DictReader(csvfile)
